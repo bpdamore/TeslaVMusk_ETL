@@ -41,9 +41,9 @@ Date | Integer | Integer | Decimal
 
 ### Tweets
 
-Date | Tweet
---- | ---
-Date | Varchar
+Date | Time | Tweet
+--- | --- | ---
+Date | Time | Varchar
 
 ------------------------
 
