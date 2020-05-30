@@ -16,8 +16,6 @@ from datetime import datetime
 
 import os
 import csv
-import pandas as pd
- 
 
 
 # %%
@@ -44,7 +42,9 @@ class Tweets(Base):
 
 
 # %%
-with open('TSLA_Cleaned.csv', newline='') as f:
+# import csv as list
+csv_file = 'Resources/TSLA_Cleaned.csv'
+with open(csv_file, newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 
@@ -87,42 +87,44 @@ while x < end:
 
 
 # %%
+# Create query for stocks
 stock_list = session.query(Stocks)
+# Print each column 
 for x in stock_list:
     print(x.date, x.open, x.close, x.change)
 
 
 # %%
-
-
-
-# %%
-
-
-
-# %%
-
+# Open csv and put the rows into a list
+csv_file = 'Resources/ElonTweets_Cleaned.csv'
+with open(csv_file, newline='') as f:
+    reader = csv.reader(f)
+    data = list(reader)
 
 
 # %%
-
+# Find the last row so the while loop knows when to end
+end = len(data)
+# Start where the data starts, avoiding the header
+x = 1
+# While there's data, convert each variable from a string to match the data type
+while x < end:
+    # Assign each value to a variable
+    dt = datetime.strptime(data[x][1], '%Y-%m-%d').date()
+    tm = datetime.strptime(data[x][2], '%H:%M:%S').time()
+    tw = data[x][3]
+    # Create a query, add it, and commit it
+    twt = Tweets(date=dt, time=tm, tweet=tw)
+    session.add(twt) 
+    session.commit()
+    # Next row!
+    x += 1
 
 
 # %%
-
-
-
-# %%
-
-
-
-# %%
-# Query All Records in the the Database
-data = engine.execute("SELECT * FROM ElonTweets_2010-2017.csv")
-for row in data:
-    print(row)
-
-
-# %%
-
+# Create query for tweets
+tweet_list = session.query(Tweets)
+# Print each column
+for x in tweet_list:
+    print(x.date, x.time, x.tweet)
 

@@ -35,7 +35,7 @@ We will be putting it all into a sqlite database using sqlalchemy.
 
 Date | Open | Close | Percent Change
 ------------ | ------------- | ------------ | ---------
-Date | Integer | Integer | Decimal
+Date | Float | Float | Float
 </br>
 </br>The Tweet Data will have its own table and be structured as follows:
 
@@ -43,7 +43,7 @@ Date | Integer | Integer | Decimal
 
 Date | Time | Tweet
 --- | --- | ---
-Date | Time | Varchar
+Date | Time | String
 
 ------------------------
 
